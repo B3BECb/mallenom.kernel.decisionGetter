@@ -8,25 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Server extends AbstractHandler {
+public class ServerBootstrapper extends AbstractHandler {
+
+    private org.eclipse.jetty.server.Server _server;
+
     public void handle(String target,
                        Request baseRequest,
                        HttpServletRequest request,
                        HttpServletResponse response)
-            throws IOException, ServletException
-    {
+            throws IOException {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
         response.getWriter().println("<h1>Hello World</h1>");
     }
 
-    public void Server() throws Exception
-    {
-        org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server(50064);
-        server.setHandler(new Server());
+    void StartServer() throws Exception {
+        this._server = new org.eclipse.jetty.server.Server(50064);
+        this._server.setHandler(new ServerBootstrapper());
 
-        server.start();
-        server.join();
+        this._server.start();
+        this._server.join();
     }
 }
