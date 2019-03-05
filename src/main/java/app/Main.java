@@ -6,6 +6,6 @@ public class Main
 
 
         var server = new ServerBootstrapper();
-        server.StartServer();
+        server.startServer();
     }
 }
